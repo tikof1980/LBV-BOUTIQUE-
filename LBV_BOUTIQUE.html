@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBV BOUTIQUE - Vêtements pour Bébés, Enfants et Jeunes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #c94b8c;
+            --accent: #ffd93d;
+            --dark: #2c2c54;
+            --light: #fff5f8;
+            --whatsapp: #25D366;
+        }
+        body { background: #fff; color: var(--dark); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .header {
+            background: linear-gradient(135deg, #fff 0%, var(--light) 100%);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header .container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); font-weight: 900; }
+        .logo span { color: var(--dark); font-size: 1.3rem; }
+        .nav ul { display: flex; list-style: none; gap: 30px; }
+        .nav a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; position: relative; }
+        .nav a:hover { color: var(--primary); }
+        .nav a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; }
+        .nav a:hover::after { width: 100%; }
+        .header-icons { display: flex; align-items: center; gap: 15px; }
+        .whatsapp-btn {
+            background: var(--whatsapp); color: white; padding: 10px 20px;
+            border-radius: 30px; text-decoration: none; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+        }
+        .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.5); }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(255,107,157,0.92), rgba(201,75,140,0.92)),
+                        url('https://images.unsplash.com/photo-1519689680058-324335c77eba?w=1200') center/cover;
+            color: white; padding: 130px 20px; text-align: center;
+        }
+        .hero-content h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; animation: fadeInDown 1s ease; }
+        .hero-content h2 span { color: var(--accent); }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 30px; animation: fadeInUp 1s ease; }
+
+        .btn-primary {
+            background: var(--accent); color: var(--dark); padding: 15px 35px;
+            border-radius: 30px; text-decoration: none; font-weight: 600;
+            display: inline-block; transition: 0.3s; border: none; cursor: pointer; font-size: 1rem;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); background: white; }
+        .btn-secondary { background: #ddd; color: var(--dark); padding: 10px 25px; border-radius: 30px; border: none; cursor: pointer; margin-top: 10px; font-weight: 600; }
+
+        .features { padding: 60px 20px; background: var(--light); }
+        .features .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+        .feature-item { background: white; padding: 30px 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .feature-item:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(255,107,157,0.2); }
+        .feature-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .feature-item h3 { margin-bottom: 10px; }
+
+        .products-section { padding: 80px 20px; }
+        .bg-light { background: var(--light); }
+        .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark); margin-bottom: 10px; }
+        .section-subtitle { text-align: center; color: #777; margin-bottom: 50px; font-size: 1.1rem; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+
+        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: 0.4s; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,107,157,0.25); }
+        .product-card .image-wrap { overflow: hidden; height: 280px; }
+        .product-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover img { transform: scale(1.1); }
+        .product-info { padding: 20px; }
+        .product-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .product-info .description { color: #777; font-size: 0.9rem; margin-bottom: 10px; }
+        .product-info .price { color: var(--primary); font-size: 1.4rem; font-weight: 700; margin-bottom: 15px; }
+        .product-actions { display: flex; gap: 10px; }
+        .order-btn {
+            flex: 1; background: var(--whatsapp); color: white; border: none;
+            padding: 10px; border-radius: 8px; cursor: pointer; font-weight: 600;
+            text-decoration: none; text-align: center; display: inline-flex;
+            align-items: center; justify-content: center; gap: 5px; transition: 0.3s;
+        }
+        .order-btn:hover { background: #1ebe5d; }
+        .delete-btn { background: #ff4757; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; display: none; }
+        .delete-btn.show { display: block; }
+
+        .contact { padding: 80px 20px; background: var(--light); }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .contact-card { background: white; padding: 40px 20px; border-radius: 15px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .contact-card:hover { transform: translateY(-5px); }
+        .contact-card i { font-size: 3rem; color: var(--primary); margin-bottom: 15px; }
+        .contact-card h3 { margin-bottom: 10px; }
+        .contact-card p { margin-bottom: 20px; color: #555; font-size: 1.1rem; }
+
+        .admin-toggle {
+            position: fixed; bottom: 100px; right: 30px; width: 55px; height: 55px;
+            border-radius: 50%; background: var(--dark); color: white; border: none;
+            cursor: pointer; font-size: 1.3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 999;
+        }
+        .admin-panel {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 2000; overflow-y: auto; padding: 50px 20px; display: none;
+        }
+        .admin-panel .container { background: white; padding: 40px; border-radius: 15px; max-width: 500px; }
+        .admin-panel h2 { margin-bottom: 25px; }
+        .admin-form { display: flex; flex-direction: column; gap: 15px; }
+        .admin-form input, .admin-form select, .admin-form textarea { padding: 12px; border: 2px solid #eee; border-radius: 8px; font-size: 1rem; font-family: inherit; }
+        .admin-form input:focus, .admin-form select:focus, .admin-form textarea:focus { outline: none; border-color: var(--primary); }
+        .admin-form textarea { min-height: 80px; resize: vertical; }
+
+        .footer { background: var(--dark); color: white; padding: 50px 20px 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-bottom: 30px; }
+        .footer-col h3 { margin-bottom: 15px; color: var(--accent); }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: #ddd; text-decoration: none; transition: 0.3s; }
+        .footer-col a:hover { color: var(--primary); }
+        .social-icons { display: flex; gap: 15px; }
+        .social-icons a { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #aaa; }
+
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--whatsapp); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            text-decoration: none; box-shadow: 0 5px 20px rgba(37,211,102,0.5); z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .nav { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            .nav.active { display: block; }
+            .nav ul { flex-direction: column; padding: 20px; gap: 15px; }
+            .menu-toggle { display: block; }
+            .hero-content h2 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo"><h1>LBV <span>BOUTIQUE</span></h1></div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#bebes">Bébés</a></li>
+                    <li><a href="#enfants">Enfants</a></li>
+                    <li><a href="#jeunes">Jeunes</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <a href="https://wa.me/2250508489860" target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Commander
+                </a>
+                <i class="fas fa-bars menu-toggle" id="menuToggle"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h2>Bienvenue chez <span>LBV BOUTIQUE</span></h2>
+            <p>Vêtements tendance et de qualité pour Bébés, Enfants et Jeunes</p>
+            <a href="#bebes" class="btn-primary">Découvrir nos collections</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature-item"><i class="fas fa-truck"></i><h3>Livraison Rapide</h3><p>Dans toute la Côte d'Ivoire</p></div>
+            <div class="feature-item"><i class="fas fa-medal"></i><h3>Qualité Premium</h3><p>Vêtements soigneusement sélectionnés</p></div>
+            <div class="feature-item"><i class="fab fa-whatsapp"></i><h3>Commande Facile</h3><p>Via WhatsApp en 1 clic</p></div>
+            <div class="feature-item"><i class="fas fa-tags"></i><h3>Prix Abordables</h3><p>Le meilleur rapport qualité/prix</p></div>
+        </div>
+    </section>
+
+    <div class="admin-panel" id="adminPanel">
+        <div class="container">
+            <h2>⚙️ Panneau d'Administration</h2>
+            <form id="productForm" class="admin-form">
+                <input type="text" id="productName" placeholder="Nom du produit" required>
+                <input type="text" id="productPrice" placeholder="Prix (ex: 5000 FCFA)" required>
+                <select id="productCategory" required>
+                    <option value="">-- Catégorie --</option>
+                    <option value="bebes">Bébés</option>
+                    <option value="enfants">Enfants</option>
+                    <option value="jeunes">Jeunes</option>
+                </select>
+                <input type="file" id="productImage" accept="image/*" required>
+                <textarea id="productDescription" placeholder="Description du produit"></textarea>
+                <button type="submit" class="btn-primary">➕ Ajouter le produit</button>
+            </form>
+            <button id="closeAdmin" class="btn-secondary" style="margin-top:15px;">✖ Fermer</button>
+        </div>
+    </div>
+
+    <button id="adminToggle" class="admin-toggle" title="Gérer les produits"><i class="fas fa-cog"></i></button>
+
+    <section class="products-section" id="bebes">
+        <div class="container">
+            <h2 class="section-title">👶 Collection Bébés</h2>
+            <p class="section-subtitle">Douceur et confort pour les tout-petits</p>
+            <div class="products-grid" id="bebesGrid"></div>
+        </div>
+    </section>
+
+    <section class="products-section bg-light" id="enfants">
+        <div class="container">
+            <h2 class="section-title">🧒 Collection Enfants</h2>
+            <p class="section-subtitle">Style et confort pour vos enfants</p>
+            <div class="products-grid" id="enfantsGrid"></div>
+        </div>
+    </section>
+
+    <section class="products-section" id="jeunes">
+        <div class="container">
+            <h2 class="section-title">👦 Collection Jeunes</h2>
+            <p class="section-subtitle">Tendance et mode pour les jeunes</p>
+            <div class="products-grid" id="jeunesGrid"></div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">📞 Contactez-nous</h2>
+            <p class="section-subtitle">Nous sommes disponibles pour vous</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>05 08 48 98 60</p>
+                    <a href="https://wa.me/2250508489860" target="_blank" class="btn-primary">Discuter</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Téléphone</h3>
+                    <p>05 08 48 98 60</p>
+                    <a href="tel:+2250508489860" class="btn-primary">Appeler</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Localisation</h3>
+                    <p>Côte d'Ivoire</p>
+                    <a href="#" class="btn-primary">Voir sur la carte</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>LBV BOUTIQUE</h3>
+                    <p>Votre boutique de référence pour les vêtements de bébés, enfants et jeunes en Côte d'Ivoire.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liens rapides</h3>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#bebes">Bébés</a></li>
+                        <li><a href="#enfants">Enfants</a></li>
+                        <li><a href="#jeunes">Jeunes</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Suivez-nous</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/2250508489860"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LBV BOUTIQUE. Tous droits réservés. ❤️ Made with Love</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/2250508489860" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        let products = JSON.parse(localStorage.getItem('lbv_products')) || [];
+        let adminMode = false;
+
+        if (products.length === 0) {
+            products = [
+                {
+                    id: 1,
+                    name: "Body Bébé Coton",
+                    price: "5 000 FCFA",
+                    category: "bebes",
+                    description: "Body en coton doux, idéal pour les nouveau-nés",
+                    image: "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=400"
+                },
+                {
+                    id: 2,
+                    name: "Pyjama Bébé Étoiles",
+                    price: "6 500 FCFA",
+                    category: "bebes",
+                    description: "Pyjama doux et chaud pour bébé",
+                    image: "https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?w=400"
+                },
+                {
+                    id: 3,
+                    name: "Robe Enfant Fleurie",
+                    price: "8 000 FCFA",
+                    category: "enfants",
+                    description: "Belle robe fleurie pour fillettes",
+                    image: "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=400"
+                },
+                {
+                    id: 4,
+                    name: "Ensemble Enfant Sport",
+                    price: "10 000 FCFA",
+                    category: "enfants",
+                    description: "Ensemble sportif confortable pour enfants",
+                    image: "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=400"
+                },
+                {
+                    id: 5,
+                    name: "T-Shirt Jeune Tendance",
+                    price: "6 500 FCFA",
+                    category: "jeunes",
+                    description: "T-shirt moderne et stylé pour jeunes",
+                    image: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400"
+                },
+                {
+                    id: 6,
+                    name: "Jean Slim Jeune",
+                    price: "12 000 FCFA",
+                    category: "jeunes",
+                    description: "Jean slim tendance pour jeunes",
+                    image: "https://images.unsplash.com/photo-1542272454315-4c01d7abdf4a?w=400"
+                }
+            ];
+            saveProducts();
+        }
+
+        function saveProducts() {
+            localStorage.setItem('lbv_products', JSON.stringify(products));
+        }
+
+        function displayProducts() {
+            ['bebes', 'enfants', 'jeunes'].forEach(cat => {
+                const grid = document.getElementById(cat + 'Grid');
+                if (!grid) return;
+                grid.innerHTML = '';
+                const filtered = products.filter(p => p.category === cat);
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = '<p style="text-align:center;color:#999;grid-column:1/-1;padding:40px;font-size:1.1rem;">Aucun produit dans cette catégorie pour le moment.</p>';
+                    return;
+                }
+
+                filtered.forEach(product => {
+                    const message = encodeURIComponent("Bonjour LBV BOUTIQUE 👋\n\nJe souhaite commander :\n\n📦 *" + product.name + "*\n💰 Prix : " + product.price + "\n\nMerci !");
+                    const whatsappLink = "https://wa.me/2250508489860?text=" + message;
+
+                    grid.innerHTML += \`
+                        <div class="product-card">
+                            <div class="image-wrap">
+                                <img src="\${product.image}" alt="\${product.name}" onerror="this.src='https://via.placeholder.com/300x300/ff6b9d/fff?text=LBV+BOUTIQUE'">
+                            </div>
+                            <div class="product-info">
+                                <h3>\${product.name}</h3>
+                                <p class="description">\${product.description || ''}</p>
+                                <p class="price">\${product.price}</p>
+                                <div class="product-actions">
+                                    <a href="\${whatsappLink}" target="_blank" class="order-btn">
+                                        <i class="fab fa-whatsapp"></i> Commander
+                                    </a>
+                                    <button class="delete-btn \${adminMode ? 'show' : ''}" onclick="deleteProduct(\${product.id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    \`;
+                });
+            });
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                displayProducts();
+            }
+        }
+
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('productName').value;
+            const price = document.getElementById('productPrice').value;
+            const category = document.getElementById('productCategory').value;
+            const description = document.getElementById('productDescription').value;
+            const imageFile = document.getElementById('productImage').files[0];
+
+            if (!imageFile) { alert("Veuillez sélectionner une image."); return; }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                products.push({ id: Date.now(), name, price, category, description, image: e.target.result });
+                saveProducts();
+                displayProducts();
+                document.getElementById('productForm').reset();
+                alert('✅ Produit ajouté avec succès !');
+            };
+            reader.readAsDataURL(imageFile);
+        });
+
+        document.getElementById('adminToggle').addEventListener('click', function() {
+            const password = prompt("🔐 Mot de passe administrateur :");
+            if (password === "lbv2025") {
+                adminMode = true;
+                document.getElementById('adminPanel').style.display = 'block';
+                displayProducts();
+            } else if (password !== null) {
+                alert("❌ Mot de passe incorrect !");
+            }
+        });
+
+        document.getElementById('closeAdmin').addEventListener('click', function() {
+            document.getElementById('adminPanel').style.display = 'none';
+        });
+
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => document.querySelector('.nav').classList.remove('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+
+        displayProducts();
+    </script>
+</body>
+</html>
